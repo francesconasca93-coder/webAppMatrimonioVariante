@@ -1,0 +1,845 @@
+/* Variante con l'impianto "aloha" di WithJoy: pannello fisso a tutta altezza con
+   i nomi, accanto alla colonna dei contenuti che scorre. Palette e font sono
+   quelli del sito principale. Il pannello di Joy è #be9759 con testo bianco
+   (contrasto ~2.6:1, illeggibile): qui diventa --ink su --paper, ~11:1. */
+
+:root {
+  --ink: #3a3226;
+  --paper: #faf6ee;
+  --paper-alt: #f2edda;
+  --sage: #8a9468;
+  --clay: #b9683f;
+  --line: #e2dac6;
+
+  --aux-w: 44%;
+  /* larghezza della colonna di testo: unica per tutte le sezioni, così le
+     intestazioni condividono lo stesso bordo sinistro */
+  --col: 620px;
+  /* il bottone del menu è fisso e arriva a 60px: sotto questa soglia il titolo
+     della sezione raggiunta via ancora finirebbe coperto */
+  --nav-h: 5rem;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+img, svg { max-width: 100%; }
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; margin: 0; }
+
+.amp { font-style: italic; color: var(--clay); }
+
+/* ---------- MENU ---------- */
+
+.menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  /* il bottone sta sopra entrambi i pannelli, uno scuro e uno chiaro:
+     sfondo proprio, così resta leggibile su tutti e due */
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  background: rgba(250, 246, 238, 0.94);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-bars {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 9px;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+}
+
+.menu-bars::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid currentColor;
+}
+
+/* Velo sul resto della pagina mentre il pannello è aperto: serve da bersaglio per
+   chiuderlo e a staccare visivamente il menu, che ora copre solo la colonna a
+   sinistra. */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: rgba(58, 50, 38, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s 0.35s;
+}
+
+body.drawer-open .scrim {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0s 0s;
+}
+
+.no-js .scrim { display: none; }
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  /* stessa larghezza del pannello dei nomi, così il menu sembra scorrere fuori
+     da lì invece di coprire tutto; il tetto in rem evita che su schermi molto
+     larghi diventi una distesa di spazio vuoto */
+  width: min(var(--aux-w), 26rem);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4.5rem 2rem 2.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 14px 0 40px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  /* chiuso: fuori schermo e fuori dall'ordine di tabulazione.
+     visibility ha delay pari alla transizione, altrimenti sparirebbe subito
+     e lo scorrimento in uscita non si vedrebbe. */
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0s 0.35s;
+}
+
+body.drawer-open .drawer {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s ease, visibility 0s 0s;
+}
+body.drawer-open { overflow: hidden; }
+
+.drawer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drawer a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  /* 11 voci devono stare in una finestra da 700px senza dover scorrere */
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(250, 246, 238, 0.16);
+  color: var(--paper);
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  transition: color 0.2s, padding-left 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.drawer a:hover,
+.drawer a:focus-visible { color: #e8a87c; padding-left: 0.5rem; }
+
+/* Entrata sfalsata delle voci: il ritardo è impostato inline da variante-joy.js
+   in base alla posizione, così non va riscritto se cambia il numero di voci. */
+.js .drawer li {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+body.drawer-open .drawer li { opacity: 1; transform: translateX(0); }
+
+.drawer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: 1px solid rgba(250, 246, 238, 0.3);
+  border-radius: 50%;
+  color: var(--paper);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.drawer-close:hover { background: rgba(250, 246, 238, 0.1); }
+
+/* Senza JS il pannello non si può aprire e questa è l'unica navigazione della
+   pagina: diventa un elenco statico in testa, e l'hamburger sparisce. */
+.no-js .menu-toggle,
+.no-js .drawer-close { display: none; }
+
+.no-js .drawer {
+  position: static;
+  width: auto;
+  transform: none;
+  visibility: visible;
+  overflow: visible;
+  box-shadow: none;
+  padding: 2.5rem 2rem;
+}
+
+.no-js .drawer ul { max-width: 620px; margin: 0 auto; }
+
+/* ---------- IMPIANTO A DUE PANNELLI ---------- */
+
+.layout { display: flex; align-items: flex-start; }
+
+.aux {
+  position: sticky;
+  top: 0;
+  flex: 0 0 var(--aux-w);
+  display: flex;
+  flex-direction: column;
+  /* la foto occupa tutto: i nomi vanno in basso, sopra di essa */
+  justify-content: flex-end;
+  /* vh e non svh: il pannello sticky esiste solo sopra i 900px, dove non c'è
+     barra indirizzi dinamica; con svh resterebbe una striscia vuota sotto */
+  height: 100vh;
+  padding: 3rem 2.5rem;
+  overflow: hidden;
+  /* si vede solo finché la prima foto non è decodificata */
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Velo dal basso: il testo è chiaro e deve restare leggibile su qualsiasi foto,
+   comprese quelle con il cielo chiaro in fondo. Va dopo .aux-art nell'ordine di
+   pittura, quindi la copre senza bisogno di z-index. */
+.aux::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(26, 22, 17, 0.82) 0%,
+    rgba(26, 22, 17, 0.42) 40%,
+    rgba(26, 22, 17, 0.04) 72%);
+  pointer-events: none;
+}
+
+/* Le foto riempiono il pannello da bordo a bordo, senza cornice né margini: il
+   contenitore esce dal flusso e resta dietro ai nomi. Si incrociano in
+   dissolvenza allo scorrimento, la classe .is-active la mette variante-joy.js. */
+.aux-art {
+  position: absolute;
+  inset: 0;
+}
+
+.aux-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.9s ease;
+}
+
+.js .aux-slide { opacity: 0; }
+.js .aux-slide.is-active { opacity: 1; }
+
+/* Senza JS nessuna diventa attiva: resta solo la prima, a tutta opacità. */
+.no-js .aux-slide ~ .aux-slide { display: none; }
+
+/* Come in Joy, i nomi sono allineati in basso a sinistra */
+.aux-title { flex: 0 0 auto; position: relative; z-index: 1; }
+
+.aux-title h1 {
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.aux-greeting {
+  margin: 1rem 0 0;
+  max-width: 32ch;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.7;
+  opacity: 0.78;
+}
+
+.main { flex: 1 1 auto; min-width: 0; }
+
+/* ---------- PAGINE ---------- */
+
+/* Una griglia a colonna unica invece di max-width sulla sezione: le fasce alt
+   devono colorare tutta la larghezza, e centrando il loro contenuto voce per
+   voce con margin:auto le intestazioni finivano su bordi diversi a seconda di
+   quanto era larga la voce più larga. Così la colonna è la stessa per tutte. */
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, var(--col));
+  justify-content: center;
+  padding: 5.5rem 3rem;
+}
+
+/* --tint è il colore prestato dalla foto di quella parte di pagina, stampato da
+   variante-joy.js; senza JS resta il beige fisso dell'alternanza. */
+.page.alt { background: var(--tint, var(--paper-alt)); }
+
+section[id] { scroll-margin-top: var(--nav-h); }
+
+.page-icon {
+  width: 34px;
+  height: 34px;
+  justify-self: start;
+  margin-bottom: 0.9rem;
+  color: var(--sage);
+}
+
+.page-title {
+  margin: 0 0 1.8rem;
+  font-size: clamp(0.85rem, 2.6vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.page-lead { margin: 0 0 1.2rem; font-size: 1.05rem; }
+
+/* ---------- FREGI D'ANGOLO ----------
+   Un solo ramo disegnato (simbolo #ramo nell'HTML) orientato per l'angolo in alto
+   a destra: gli altri sono lo stesso ramo ribaltato. */
+
+.corner {
+  position: absolute;
+  width: clamp(120px, 20vw, 230px);
+  height: clamp(120px, 20vw, 230px);
+  color: var(--sage);
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+/* Il ramo nasce dal suo spigolo in alto a sinistra: per gli altri angoli si
+   ribalta sull'asse che serve, invece di ridisegnarlo. */
+.corner-tr { top: -14px; right: -18px; transform: scaleX(-1); }
+.corner-bl { bottom: -14px; left: -18px; transform: scaleY(-1); }
+
+/* Entrata: i rami sbocciano dallo spigolo quando la sezione compare. Si usa la
+   proprietà "scale" separata e non transform, che qui porta già il ribaltamento
+   e verrebbe sovrascritto. */
+.js .fade-in .corner {
+  opacity: 0;
+  scale: 0.88;
+  transition: opacity 1.3s ease-out 0.3s, scale 1.3s ease-out 0.3s;
+}
+
+.js .fade-in.visible .corner { opacity: 0.42; scale: 1; }
+.page-note { margin: 1.2rem 0 0; font-size: 0.9rem; opacity: 0.72; }
+
+/* ---------- BENVENUTO ---------- */
+
+.page-welcome {
+  /* i fregi escono dagli spigoli: relative per ancorarli, hidden perché la parte
+     fuori bordo non allarghi la pagina */
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.page-date {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.page-place {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.page-date-sm {
+  margin: -1rem 0 2.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+}
+
+#countdown {
+  display: flex;
+  justify-content: center;
+  /* 4 colonne devono stare anche a 320px senza andare a capo */
+  gap: clamp(0.9rem, 5.5vw, 2.2rem);
+  margin: 2.4rem 0;
+  font-size: clamp(1.1rem, 4.4vw, 1.4rem);
+}
+
+#countdown div { text-align: center; }
+
+#countdown span {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 2.6rem;
+  border: 1px solid var(--clay);
+  border-radius: 30px;
+  background: var(--clay);
+  color: var(--paper);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover { background: transparent; color: var(--clay); }
+
+.scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  margin-top: 2.6rem;
+  padding: 0.5rem 1rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  transition: opacity 0.25s, color 0.25s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scroll-hint:hover { opacity: 1; color: var(--clay); }
+.scroll-hint svg { width: 46px; height: 11px; color: var(--clay); }
+
+/* ---------- TIMELINE ---------- */
+
+.tl { list-style: none; margin: 0; padding: 0; }
+
+.tl li {
+  position: relative;
+  padding: 0 0 2.6rem 2rem;
+  /* traccia verticale continua fra gli eventi */
+  border-left: 1px solid var(--line);
+}
+
+.tl li:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+.tl li::before {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  left: -5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--clay);
+}
+
+.tl-time {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.tl-event { margin: 0.2rem 0 0.6rem; font-size: 1.85rem; }
+
+.tl-place {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.tl-place svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 0.35rem; color: var(--sage); }
+
+/* Nome e indirizzo vanno in un unico flex item: in un contenitore flex il <br>
+   non separa gli item, e l'indirizzo finirebbe affiancato al nome. */
+.tl-venue { min-width: 0; }
+.tl-addr { font-size: 0.9rem; opacity: 0.7; }
+
+.tl-note { margin: 0.8rem 0 0; font-size: 0.95rem; opacity: 0.78; }
+
+.tl-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.tl-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  color: var(--clay);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tl-actions a:hover { background: var(--clay); border-color: var(--clay); color: var(--paper); }
+
+/* ---------- BLOCCHI ICONA + TESTO ---------- */
+
+.info { display: flex; flex-direction: column; gap: 2.4rem; margin-top: 2.2rem; }
+
+.info-block { display: flex; gap: 1.2rem; }
+
+.info-block > svg { flex: 0 0 auto; width: 32px; height: 32px; color: var(--sage); margin-top: 0.25rem; }
+
+.info-block h3 { font-size: 1.45rem; margin-bottom: 0.4rem; }
+
+.info-block ul { margin: 0; padding-left: 1.1rem; }
+.info-block li { font-size: 0.98rem; margin-bottom: 0.4rem; }
+.info-block strong { font-weight: 400; color: var(--clay); }
+
+/* ---------- COUNTDOWN IN BANNER ---------- */
+
+.cd-banner {
+  margin-top: 3.5rem;
+  padding: 2.2rem 1.5rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.cd-banner-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.cd-banner-value {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 6vw, 2.8rem);
+  letter-spacing: 0.04em;
+  color: var(--clay);
+}
+
+/* ---------- DOMANDE E RISPOSTE ---------- */
+
+.qa { margin-top: 2.4rem; }
+
+.qa details { border-bottom: 1px solid var(--line); }
+.qa details:first-of-type { border-top: 1px solid var(--line); }
+
+.qa summary {
+  /* l'intera riga è il target di tocco, non solo il testo */
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.15rem 0;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  list-style: none;
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.qa summary::-webkit-details-marker { display: none; }
+
+/* Indicatore +/− disegnato con due gradienti, nessuna icona da caricare.
+   All'apertura si azzera l'altezza della barra verticale, centrata: il + si
+   richiude in un −. Ruotarlo non servirebbe, un + ruotato di 90° è identico. */
+.qa summary::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  margin-left: auto;
+  margin-top: 0.55rem;
+  background:
+    linear-gradient(var(--clay), var(--clay)) center / 100% 1px no-repeat,
+    linear-gradient(var(--clay), var(--clay)) center / 1px 100% no-repeat;
+  opacity: 0.8;
+  transition: background-size 0.25s ease, opacity 0.2s;
+}
+
+.qa details[open] summary { color: var(--clay); }
+.qa details[open] summary::after { background-size: 100% 1px, 1px 0; opacity: 1; }
+
+.qa summary:hover { color: var(--clay); }
+.qa summary:focus-visible { outline: 1px solid var(--clay); outline-offset: 3px; }
+
+.qa details p { margin: 0; padding: 0 0 1.4rem; font-size: 1rem; opacity: 0.85; max-width: 56ch; }
+.qa details strong { font-weight: 400; color: var(--clay); }
+
+/* ---------- VARIE ---------- */
+
+.link-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 2.4rem 0 0;
+}
+
+.link-group a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  color: var(--clay);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.link-group a:hover { background: var(--clay); border-color: var(--clay); color: var(--paper); }
+
+.iban {
+  margin: 1.6rem 0 0;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.95rem, 4vw, 1.15rem);
+  color: var(--clay);
+}
+
+.weather-now { margin: 0 0 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; }
+.weather-note { margin: 0; font-size: 0.9rem; opacity: 0.75; }
+
+.contacts { display: flex; gap: 3rem; margin-top: 2rem; }
+.contacts > div { flex: 1; min-width: 0; }
+.contacts h3 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+.contacts p { margin: 0.1rem 0; }
+
+.contacts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--clay);
+  text-decoration: none;
+  word-break: break-word;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contacts a:hover { text-decoration: underline; }
+
+.gallery-title {
+  font-size: 1.9rem;
+  font-style: italic;
+  color: var(--clay);
+  margin-bottom: 1rem;
+}
+
+#galleria .btn { justify-self: start; margin-top: 1.6rem; }
+
+.qr-code {
+  display: block;
+  margin: 1.8rem 0 0.8rem;
+  width: 140px;
+  height: 140px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* ---------- FORM ---------- */
+
+form { display: flex; flex-direction: column; gap: 1.3rem; max-width: 420px; margin: 2.2rem 0 0; }
+
+.field-hint { margin: -0.8rem 0 0; font-size: 0.8rem; opacity: 0.65; }
+
+form input, form select, form textarea {
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 0.75rem 0.2rem;
+  min-height: 44px;
+  font-family: inherit;
+  /* 1rem = 16px: sotto questa soglia iOS zooma il viewport al focus */
+  font-size: 1rem;
+  color: var(--ink);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+form select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--clay) 50%),
+                    linear-gradient(135deg, var(--clay) 50%, transparent 50%);
+  background-position: right 0.7rem center, right 0.35rem center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 1.6rem;
+}
+
+form textarea { min-height: 5.5rem; resize: vertical; }
+
+form input:focus, form select:focus, form textarea:focus { outline: none; border-bottom-color: var(--clay); }
+
+form button {
+  margin-top: 0.5rem;
+  padding: 0.95rem;
+  min-height: 48px;
+  border: 1px solid var(--ink);
+  background: none;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+form button:hover { background: var(--ink); color: var(--paper); }
+
+footer {
+  padding: 4rem 3rem 3rem;
+  border-top: 1px solid var(--line);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+}
+
+footer p { margin: 0; }
+
+.footer-date {
+  margin-top: 0.4rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ---------- ANIMAZIONI ----------
+   Nascoste solo con JS attivo (classe .js impostata inline nell'<head>):
+   senza questo vincolo, con JS bloccato nessuna sezione tornerebbe visibile. */
+
+.js .fade-in {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.js .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- MOBILE ----------
+   Il pannello fisso non ha senso su una colonna sola: diventa una copertina
+   in cima, e i contenuti scorrono sotto. */
+
+@media (max-width: 900px) {
+  .layout { display: block; }
+
+  /* --aux-w è una percentuale della pagina intera: su mobile darebbe un pannello
+     di 170px. Qui il menu prende quasi tutto ma lascia scoperto il velo, così si
+     capisce che è un pannello sopra la pagina e non una schermata nuova. */
+  .drawer { width: min(86vw, 21rem); }
+
+  .aux {
+    /* relative, non static: serve comunque come blocco contenitore degli
+       ornamenti in absolute, altrimenti si ancorano al viewport e sbordano
+       aggirando l'overflow: hidden */
+    position: relative;
+    height: auto;
+    min-height: 88svh;
+    padding: 5rem 1.5rem 3rem;
+  }
+
+
+  .page { padding: 4rem 1.5rem; }
+  .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
+  .page-date-sm { margin-top: -0.6rem; }
+
+  footer { padding: 3rem 1.5rem 2.5rem; }
+}
+
+@media (max-width: 560px) {
+  .menu-toggle { padding: 0.6rem 0.9rem; font-size: 0.65rem; }
+
+  .page { padding: 3.5rem 1.25rem; }
+  .aux { padding: 4.5rem 1.25rem 2.5rem; }
+
+  /* orario sopra, evento sotto: a 320px la traccia rubava troppa larghezza */
+  .tl li { padding-left: 1.5rem; }
+  .tl-event { font-size: 1.6rem; }
+
+  .contacts { flex-direction: column; gap: 2rem; }
+  .info-block { gap: 0.9rem; }
+  .info-block > svg { width: 26px; height: 26px; }
+
+  .drawer { padding: 4.5rem 1.5rem 2rem; }
+  .drawer a { font-size: 1.3rem; }
+  .page-icon { width: 28px; height: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .js .fade-in,
+  .js .fade-in.visible { opacity: 1; transform: none; transition: none; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    /* anche i ritardi: lo stagger del menu è impostato inline da JS e senza
+       questo le voci resterebbero invisibili fino a 0,4s senza animazione */
+    transition-delay: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

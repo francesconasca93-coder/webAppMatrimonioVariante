@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="it" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francesco &amp; Valentina — 22 maggio 2027</title>
+<meta name="description" content="Francesco e Valentina si sposano il 22 maggio 2027 in Puglia. Dettagli su cerimonia, ricevimento, viaggio, alloggio e conferma di partecipazione.">
+<meta name="theme-color" content="#3a3226">
+
+<!-- Sostituire SITE_URL con il dominio pubblicato: gli scraper social non
+     risolvono i percorsi relativi, og:url e og:image devono essere assoluti. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Francesco &amp; Valentina">
+<meta property="og:title" content="Francesco &amp; Valentina — 22 maggio 2027">
+<meta property="og:description" content="Ci sposiamo in Puglia, tra gli ulivi e il sole. Qui trovate tutti i dettagli e la conferma di partecipazione.">
+<meta property="og:url" content="SITE_URL/variante-joy.html">
+<meta property="og:image" content="SITE_URL/foto/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Illustrazione di Francesco e Valentina con la data del matrimonio">
+<meta name="twitter:card" content="summary_large_image">
+
+<script>document.documentElement.className = 'js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="variante-joy.css">
+</head>
+<body>
+
+<button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="drawer" aria-label="Apri il menu">
+  <span class="menu-bars" aria-hidden="true"></span>
+  <span class="menu-word">Menu</span>
+</button>
+
+<div id="scrim" class="scrim"></div>
+
+<!-- Ramo d'ulivo dei fregi d'angolo: disegnato una volta, orientato per l'angolo
+     in alto a sinistra, e ribaltato dal CSS per gli altri angoli. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <!-- foglia a mandorla, dalla base (0,0) verso la punta: la posizione e
+         l'inclinazione arrivano dal transform di ogni <use> -->
+    <path id="foglia" d="M0 0 C 5 -4.4, 13.5 -3.6, 18.5 0 C 13.5 3.6, 5 4.4, 0 0 Z"/>
+  </defs>
+  <symbol id="ramo" viewBox="0 0 140 140" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+    <path d="M2 3 C 40 16, 76 30, 132 40"/>
+    <use href="#foglia" transform="translate(17.9 8.5) rotate(-6.8) scale(0.92)"/>
+    <use href="#foglia" transform="translate(17.9 8.5) rotate(45.2) scale(0.92)"/>
+    <use href="#foglia" transform="translate(31.6 13.3) rotate(-7.1) scale(0.87)"/>
+    <use href="#foglia" transform="translate(31.6 13.3) rotate(44.9) scale(0.87)"/>
+    <use href="#foglia" transform="translate(45.7 18.0) rotate(-7.8) scale(0.82)"/>
+    <use href="#foglia" transform="translate(45.7 18.0) rotate(44.2) scale(0.82)"/>
+    <use href="#foglia" transform="translate(60.2 22.6) rotate(-8.9) scale(0.77)"/>
+    <use href="#foglia" transform="translate(60.2 22.6) rotate(43.1) scale(0.77)"/>
+    <use href="#foglia" transform="translate(75.6 27.1) rotate(-10.4) scale(0.72)"/>
+    <use href="#foglia" transform="translate(75.6 27.1) rotate(41.6) scale(0.72)"/>
+    <use href="#foglia" transform="translate(92.0 31.5) rotate(-12.0) scale(0.68)"/>
+    <use href="#foglia" transform="translate(92.0 31.5) rotate(40.0) scale(0.68)"/>
+    <use href="#foglia" transform="translate(109.6 35.6) rotate(-13.8) scale(0.63)"/>
+    <use href="#foglia" transform="translate(109.6 35.6) rotate(38.2) scale(0.63)"/>
+    <use href="#foglia" transform="translate(132.0 40.0) rotate(10.1) scale(0.49)"/>
+    <path d="M3 5 C 16 42, 24 80, 28 134"/>
+    <use href="#foglia" transform="translate(8.2 20.6) rotate(44.8) scale(0.87)"/>
+    <use href="#foglia" transform="translate(8.2 20.6) rotate(100.8) scale(0.87)"/>
+    <use href="#foglia" transform="translate(12.1 34.3) rotate(46.8) scale(0.82)"/>
+    <use href="#foglia" transform="translate(12.1 34.3) rotate(102.8) scale(0.82)"/>
+    <use href="#foglia" transform="translate(15.7 48.4) rotate(48.8) scale(0.77)"/>
+    <use href="#foglia" transform="translate(15.7 48.4) rotate(104.8) scale(0.77)"/>
+    <use href="#foglia" transform="translate(18.9 63.1) rotate(50.8) scale(0.73)"/>
+    <use href="#foglia" transform="translate(18.9 63.1) rotate(106.8) scale(0.73)"/>
+    <use href="#foglia" transform="translate(21.7 78.5) rotate(52.7) scale(0.68)"/>
+    <use href="#foglia" transform="translate(21.7 78.5) rotate(108.7) scale(0.68)"/>
+    <use href="#foglia" transform="translate(24.1 94.9) rotate(54.5) scale(0.63)"/>
+    <use href="#foglia" transform="translate(24.1 94.9) rotate(110.5) scale(0.63)"/>
+    <use href="#foglia" transform="translate(26.1 112.2) rotate(56.1) scale(0.59)"/>
+    <use href="#foglia" transform="translate(26.1 112.2) rotate(112.1) scale(0.59)"/>
+    <use href="#foglia" transform="translate(28.0 134.0) rotate(85.8) scale(0.46)"/>
+    <path d="M6 9 C 34 32, 50 52, 72 96"/>
+    <use href="#foglia" transform="translate(17.1 18.6) rotate(10.2) scale(0.68)"/>
+    <use href="#foglia" transform="translate(17.1 18.6) rotate(74.2) scale(0.68)"/>
+    <use href="#foglia" transform="translate(25.7 26.8) rotate(13.4) scale(0.64)"/>
+    <use href="#foglia" transform="translate(25.7 26.8) rotate(77.4) scale(0.64)"/>
+    <use href="#foglia" transform="translate(33.7 35.4) rotate(16.9) scale(0.61)"/>
+    <use href="#foglia" transform="translate(33.7 35.4) rotate(80.9) scale(0.61)"/>
+    <use href="#foglia" transform="translate(41.2 44.6) rotate(20.5) scale(0.57)"/>
+    <use href="#foglia" transform="translate(41.2 44.6) rotate(84.5) scale(0.57)"/>
+    <use href="#foglia" transform="translate(48.5 54.8) rotate(24.0) scale(0.53)"/>
+    <use href="#foglia" transform="translate(48.5 54.8) rotate(88.0) scale(0.53)"/>
+    <use href="#foglia" transform="translate(55.7 66.1) rotate(26.9) scale(0.50)"/>
+    <use href="#foglia" transform="translate(55.7 66.1) rotate(90.9) scale(0.50)"/>
+    <use href="#foglia" transform="translate(63.1 78.9) rotate(29.3) scale(0.46)"/>
+    <use href="#foglia" transform="translate(63.1 78.9) rotate(93.3) scale(0.46)"/>
+    <use href="#foglia" transform="translate(72.0 96.0) rotate(63.4) scale(0.36)"/>
+    <circle cx="26" cy="24" r="1.9" fill="currentColor" stroke="none"/>
+    <circle cx="32" cy="29" r="1.9" fill="currentColor" stroke="none"/>
+    <circle cx="22" cy="31" r="1.9" fill="currentColor" stroke="none"/>
+  </symbol>
+</svg>
+
+
+<nav id="drawer" class="drawer" aria-label="Sezioni del sito">
+  <button id="drawer-close" class="drawer-close" aria-label="Chiudi il menu">&times;</button>
+  <ul>
+    <li><a href="#benvenuto">Benvenuti</a></li>
+    <li><a href="#programma">Programma</a></li>
+    <li><a href="#viaggio">Viaggio</a></li>
+    <li><a href="#alloggio">Dove alloggiare</a></li>
+    <li><a href="#meteo">Meteo</a></li>
+    <li><a href="#dress-code">Dress code</a></li>
+    <li><a href="#faq">Domande e risposte</a></li>
+    <li><a href="#regalo">Un pensiero per noi</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+    <li><a href="#rsvp">Conferma partecipazione</a></li>
+    <li><a href="#galleria">Galleria</a></li>
+  </ul>
+</nav>
+
+<div class="layout">
+
+  <!-- Pannello fisso: nell'impianto Joy è la foto a tutta altezza, da bordo a
+       bordo, con i nomi sovrapposti in basso a sinistra. -->
+  <aside class="aux">
+
+    <!-- PER AGGIUNGERE FOTO: inserire un altro <img class="aux-slide"> qui sotto
+         e mettere il suo numero d'ordine (1 = la prima) nel data-art della
+         sezione da cui deve comparire. Le sezioni senza data-art tengono la foto
+         della precedente. variante-joy.js fa il resto: dissolvenza allo scorrimento.
+         data-tint è il colore che la foto presta allo sfondo delle fasce: una
+         tonalità dominante dell'immagine, schiarita per restare nella palette. -->
+    <div class="aux-art">
+      <img class="aux-slide" src="foto/1.monastero_santa_colonna.jpg" data-tint="#f5e9d3" alt="Il Santuario Santa Maria di Colonna sul mare, al tramonto">
+      <img class="aux-slide" src="foto/2.trani-cattedrale.jpg" data-tint="#f2e8de" alt="La cattedrale di Trani al tramonto sul porto">
+      <img class="aux-slide" src="foto/3.festa-luci.jpg" data-tint="#f2e6d2" alt="Tavolo imbandito all'aperto sotto le luci">
+      <img class="aux-slide" src="foto/4.corte-bracco.jpg" data-tint="#e9edde" alt="La corte in pietra di Corte Bracco dei Germani">
+    </div>
+
+    <div class="aux-title">
+      <h1>Francesco <span class="amp">&amp;</span> Valentina</h1>
+      <p class="aux-greeting">Con gioia vi invitiamo a festeggiare insieme a noi, tra gli ulivi e il sole di Puglia.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section id="benvenuto" data-art="1" class="page page-welcome fade-in">
+      <svg class="corner corner-tr" viewBox="0 0 140 140" aria-hidden="true"><use href="#ramo"/></svg>
+      <svg class="corner corner-bl" viewBox="0 0 140 140" aria-hidden="true"><use href="#ramo"/></svg>
+
+      <p class="page-date">Sabato 22 Maggio 2027</p>
+      <p class="page-place">Trani, Puglia</p>
+      <div id="countdown"></div>
+      <a class="btn" href="#rsvp">RSVP</a>
+      <a class="scroll-hint" href="#programma">
+        Vedi dettagli
+        <svg viewBox="0 0 66 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 2 L33 13 L64 2"/>
+        </svg>
+      </a>
+    </section>
+
+    <section id="programma" class="page fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.6 2.1"/>
+      </svg>
+      <p class="page-title">Programma</p>
+      <p class="page-date-sm">Sabato 22 Maggio 2027</p>
+
+      <ol class="tl">
+        <li>
+          <p class="tl-time">11:00 &ndash; 12:00</p>
+          <h2 class="tl-event">Cerimonia</h2>
+          <p class="tl-place">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 22s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/>
+            </svg>
+            <span class="tl-venue">Santuario Santa Maria di Colonna<br>
+              <span class="tl-addr">Piazza Marina di Colonna, Trani</span></span>
+          </p>
+          <div class="tl-actions">
+            <a href="https://www.google.com/maps/place/Santuario+Santa+Maria+di+Colonna/@41.2707914,16.441639,788m/data=!3m2!1e3!4b1!4m6!3m5!1s0x13380798b709d1d1:0x453e2282026815b8!8m2!3d41.2707914!4d16.441639!16s%2Fg%2F11kg1xhnph" target="_blank" rel="noopener">Indicazioni</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Matrimonio%20Francesco%20%26%20Valentina&amp;dates=20270522T090000Z/20270522T190000Z&amp;location=Santuario%20Santa%20Maria%20di%20Colonna%2C%20Trani&amp;details=Cerimonia%20alle%2011%3A00%2C%20ricevimento%20a%20seguire%20presso%20Corte%20Bracco%20dei%20Germani." target="_blank" rel="noopener">Aggiungi al calendario</a>
+          </div>
+        </li>
+
+        <li>
+          <p class="tl-time">A seguire</p>
+          <h2 class="tl-event">Ricevimento</h2>
+          <p class="tl-place">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 22s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/>
+            </svg>
+            <span class="tl-venue">Corte Bracco dei Germani<br>
+              <span class="tl-addr">S.P. 2 km 6, Corato</span></span>
+          </p>
+          <p class="tl-note">Circa 25 minuti in auto dal Santuario. C&rsquo;&egrave; tempo per il trasferimento, non serve correre.</p>
+          <div class="tl-actions">
+            <a href="https://www.google.com/maps/place/Corte+Bracco+dei+Germani/@41.1460621,16.4250856,790m/data=!3m2!1e3!4b1!4m6!3m5!1s0x13380eb84b1d6d09:0x7497c1064ea3d9a4!8m2!3d41.1460581!4d16.4276605!16s%2Fg%2F11bv1n93_r" target="_blank" rel="noopener">Indicazioni</a>
+            <a href="#alloggio">Dove alloggiare</a>
+          </div>
+        </li>
+
+        <li>
+          <p class="tl-time">Fino a sera</p>
+          <h2 class="tl-event">Post festa</h2>
+          <p class="tl-note">Dopo il pranzo la festa continua, senza un orario di chiusura rigido: restate quanto vi va.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="viaggio" data-art="2" class="page alt fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/>
+      </svg>
+      <p class="page-title">Viaggio</p>
+      <p class="page-lead">Come raggiungere la Puglia e muoversi in zona.</p>
+
+      <div class="info">
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M16 3c1.2 0 2 1.4 2 3.2v5.1l9 5.3v2.6l-9-2.6v5.6l3.4 2.4v2.2L16 25.4l-5.4 1.4v-2.2L14 22.2v-5.6l-9 2.6v-2.6l9-5.3V6.2C14 4.4 14.8 3 16 3z"/>
+          </svg>
+          <div>
+            <h3>In aereo</h3>
+            <ul>
+              <li>Aeroporto di riferimento: <strong>Bari Palese &ndash; Karol Wojty&#322;a</strong> (BRI), a circa 45 minuti di auto da Trani.</li>
+              <li>Dall&rsquo;aeroporto il treno Ferrotramviaria collega Bari Centrale, da cui si prosegue per Trani o Corato.</li>
+              <li>Consigliamo il noleggio auto in aeroporto: rende molto pi&ugrave; semplici gli spostamenti del giorno del matrimonio.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="8" y="3" width="16" height="20" rx="4"/>
+            <path d="M9 11h14"/><path d="M11 27l2-4M21 27l-2-4"/>
+            <circle cx="12.5" cy="18.5" r="1.3"/><circle cx="19.5" cy="18.5" r="1.3"/>
+          </svg>
+          <div>
+            <h3>In treno</h3>
+            <ul>
+              <li>Le stazioni pi&ugrave; comode sono <strong>Trani</strong> e <strong>Corato</strong>, sulla linea Bari&ndash;Foggia.</li>
+              <li>Trani &egrave; la scelta migliore se dormite in centro: la stazione &egrave; a pochi minuti dal Santuario.</li>
+              <li>Da entrambe le stazioni serve poi un&rsquo;auto o un taxi per raggiungere la sala, che &egrave; in campagna.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M4 20v-3l3-7a3 3 0 0 1 2.8-2h12.4A3 3 0 0 1 25 10l3 7v3"/>
+            <path d="M4 20h24v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-1H9v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/>
+            <path d="M7 11h18"/>
+          </svg>
+          <div>
+            <h3>In auto</h3>
+            <ul>
+              <li>Chiesa e sala sono comodamente collegate: i link &ldquo;Indicazioni&rdquo; nel Programma guidano passo passo da qualsiasi punto di partenza.</li>
+              <li>Tra cerimonia e ricevimento ci sono circa <strong>25 minuti</strong> di strada.</li>
+              <li>Parcheggio: [DA CONFERMARE]</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M8 4h13l6 6v18H8z"/><path d="M20 4v7h7"/><path d="M12 17h11M12 22h8"/>
+          </svg>
+          <div>
+            <h3>Se siete senza auto</h3>
+            <ul>
+              <li>Scrivetelo nelle note del modulo di conferma: vi mettiamo in contatto con altri invitati della vostra zona per organizzare i passaggi.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alloggio" class="page fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/>
+      </svg>
+      <p class="page-title">Dove alloggiare</p>
+      <p class="page-lead">Tre opzioni, a seconda di come preferite vivere il weekend.</p>
+
+      <div class="info">
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M4 28V13l12-8 12 8v15z"/><path d="M12 28v-9h8v9"/>
+          </svg>
+          <div>
+            <h3>Trani o Corato, in centro</h3>
+            <ul>
+              <li>B&amp;B e case caratteristiche nel centro storico, a pochi minuti dalla chiesa.</li>
+              <li>La scelta migliore se volete girare a piedi la sera prima o il giorno dopo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M16 29C9 25 6 18 8 11c1.5-5 5-8 8-6 3-2 6.5 1 8 6 2 7-1 14-8 18z"/>
+            <path d="M16 27V8"/>
+          </svg>
+          <div>
+            <h3>Masserie e agriturismi</h3>
+            <ul>
+              <li>Nella campagna intorno alla sala: pi&ugrave; vicini al ricevimento e nel pieno del paesaggio pugliese.</li>
+              <li>Sono pochi e si riempiono presto: se vi interessa questa opzione, muovetevi con anticipo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="5" y="8" width="22" height="18" rx="2"/>
+            <path d="M5 14h22M11 8V4M21 8V4"/>
+          </svg>
+          <div>
+            <h3>Bari</h3>
+            <ul>
+              <li>Comoda se arrivate in aereo e preferite riposare subito senza ulteriori spostamenti.</li>
+              <li>Pi&ugrave; scelta di alberghi, ma circa 45 minuti di auto dalla cerimonia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="link-group">
+        <a href="https://www.booking.com/searchresults.html?ss=Trani" target="_blank" rel="noopener">Alloggi a Trani</a>
+        <a href="https://www.booking.com/searchresults.html?ss=Corato" target="_blank" rel="noopener">Alloggi a Corato</a>
+        <a href="https://www.booking.com/searchresults.html?ss=Bari" target="_blank" rel="noopener">Alloggi a Bari</a>
+      </div>
+
+      <p class="page-note">Consigliamo di prenotare per tempo: in alta stagione la disponibilit&agrave; in zona si riduce rapidamente.</p>
+
+      <div class="cd-banner">
+        <p class="cd-banner-label">L&rsquo;evento inizia tra</p>
+        <p id="countdown-days" class="cd-banner-value"></p>
+      </div>
+    </section>
+
+    <section id="meteo" class="page alt fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6"/>
+      </svg>
+      <p class="page-title">Meteo</p>
+      <div id="weather">
+        <p class="page-lead">Caricamento previsioni&hellip;</p>
+      </div>
+    </section>
+
+    <section id="dress-code" data-art="3" class="page fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M12 4.5a1.8 1.8 0 0 1 1.8 1.8c0 1.4-1.8 1.5-1.8 3"/>
+        <path d="M12 9.3L3.5 15.6a1 1 0 0 0 .6 1.8h15.8a1 1 0 0 0 .6-1.8z"/>
+      </svg>
+      <p class="page-title">Dress code</p>
+      <p class="page-lead">Elegante. Vi chiediamo solo di evitare il bianco e i pastelli molto chiari.</p>
+      <p class="page-note">Parte della giornata si svolge all&rsquo;aperto in campagna a maggio: un tacco non troppo sottile e qualcosa di leggero per la sera sono una buona idea.</p>
+    </section>
+
+    <section id="faq" class="page alt fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M9.4 9.2a2.7 2.7 0 1 1 3.4 2.6c-.6.2-.9.8-.9 1.4v.5"/>
+        <circle cx="11.9" cy="16.8" r="0.9" fill="currentColor" stroke="none"/>
+      </svg>
+      <p class="page-title">Domande e risposte</p>
+      <p class="page-lead">Le cose che ci vengono chieste pi&ugrave; spesso. Se manca qualcosa, scriveteci: ci trovate nei contatti.</p>
+
+      <div class="qa">
+        <details>
+          <summary>Entro quando devo confermare?</summary>
+          <p>Entro il <strong>22 aprile 2027</strong>, un mese prima del matrimonio. Trovate il modulo nella sezione &ldquo;Conferma partecipazione&rdquo;. Se non potete venire, compilatelo comunque scegliendo &ldquo;No&rdquo;: ci aiuta molto con l&rsquo;organizzazione dei tavoli.</p>
+        </details>
+
+        <details>
+          <summary>Come mi devo vestire?</summary>
+          <p>Elegante. Vi chiediamo solo di evitare il bianco e i pastelli molto chiari. Considerate che parte della giornata si svolge all&rsquo;aperto in campagna a maggio: un tacco non troppo sottile e qualcosa di leggero per la sera sono una buona idea.</p>
+        </details>
+
+        <details>
+          <summary>Quanto dista il ricevimento dalla cerimonia?</summary>
+          <p>Il Santuario &egrave; sulla costa vicino a Trani, la sala &egrave; in campagna verso Corato: <strong>circa 25 minuti in auto</strong>. Dopo la cerimonia c&rsquo;&egrave; tempo per il trasferimento, non serve correre. Se siete senza macchina ditecelo nelle note del modulo RSVP e vi mettiamo in contatto con altri invitati della vostra zona.</p>
+        </details>
+
+        <details>
+          <summary>Ho segnalato un&rsquo;intolleranza: viene tenuta in conto?</summary>
+          <p>S&igrave;. Tutto quello che scrivete nel campo note del modulo viene passato alla sala per la preparazione del menu. Se ve ne accorgete dopo aver gi&agrave; inviato la conferma, scriveteci direttamente.</p>
+        </details>
+
+        <details>
+          <summary>Posso portare i bambini?</summary>
+          <p>[DA CONFERMARE]</p>
+        </details>
+
+        <details>
+          <summary>C&rsquo;&egrave; parcheggio?</summary>
+          <p>[DA CONFERMARE]</p>
+        </details>
+
+        <details>
+          <summary>A che ora si finisce?</summary>
+          <p>Dopo il pranzo la festa continua fino a sera, senza un orario di chiusura rigido: restate quanto vi va.</p>
+        </details>
+
+        <details>
+          <summary>Posso pubblicare le foto sui social?</summary>
+          <p>Volentieri. L&rsquo;unica richiesta &egrave; di aspettare la fine della cerimonia prima di postare. E se caricate gli scatti anche nell&rsquo;album condiviso (sezione &ldquo;Galleria&rdquo;) ci fate un regalo: cos&igrave; restano tutti insieme in un posto solo.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="regalo" class="page fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <rect x="3.5" y="9.5" width="17" height="11" rx="1"/>
+        <path d="M3.5 9.5h17M12 9.5v11"/>
+        <path d="M12 9.5S11.2 5 8.8 5a2.3 2.3 0 0 0 0 4.5M12 9.5S12.8 5 15.2 5a2.3 2.3 0 0 1 0 4.5"/>
+      </svg>
+      <p class="page-title">Un pensiero per noi</p>
+      <p class="page-lead">La vostra presenza &egrave; il regalo pi&ugrave; bello. Per chi desiderasse comunque contribuire al nostro viaggio di nozze, ecco il nostro IBAN.</p>
+      <p class="iban">IT60 X054 2811 1010 0000 0123 456</p>
+    </section>
+
+    <section id="contatti" data-art="4" class="page alt fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.8 6.8L12 13l8.2-6.2"/>
+      </svg>
+      <p class="page-title">Contatti</p>
+      <p class="page-lead">Per qualsiasi necessit&agrave;, siamo a disposizione.</p>
+      <div class="contacts">
+        <div>
+          <h3>Francesco</h3>
+          <p><a href="tel:+393330000001">+39 333 000 0001</a></p>
+          <p><a href="mailto:francesco.fake@email.it">francesco.fake@email.it</a></p>
+        </div>
+        <div>
+          <h3>Valentina</h3>
+          <p><a href="tel:+393330000002">+39 333 000 0002</a></p>
+          <p><a href="mailto:valentina.fake@email.it">valentina.fake@email.it</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" class="page fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M5.5 4.5h13v15h-13z"/><path d="M8.5 4.5V3h7v1.5"/><path d="M9 12.4l2.1 2.1 4-4"/>
+      </svg>
+      <p class="page-title">Conferma partecipazione</p>
+      <p class="page-lead">Confermate la presenza entro il 22 aprile 2027.</p>
+      <form id="rsvp-form" action="https://script.google.com/macros/s/AKfycbz3F7D0TAbBewv7JZP9ffJcxLzHXjQXHX-nFhmsTva17-h08mbXgD7DwxrgwzSubdXy/exec" method="POST">
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="text" name="cognome" placeholder="Cognome" required>
+        <input type="email" name="email" placeholder="Email (facoltativo)">
+        <p class="field-hint">Utile per eventuali reminder o comunicazioni prima del matrimonio.</p>
+        <select name="presenza" required>
+          <option value="">Sarai presente?</option>
+          <option value="si">S&igrave;</option>
+          <option value="no">No</option>
+        </select>
+        <input type="number" name="accompagnatori" placeholder="Accompagnatori" min="0">
+        <textarea name="note" placeholder="Intolleranze alimentari / note"></textarea>
+        <p class="field-hint">Le intolleranze segnalate verranno comunicate alla sala per l&rsquo;organizzazione del menu.</p>
+        <button type="submit">Invia</button>
+      </form>
+      <p id="rsvp-thanks" hidden>Grazie.</p>
+    </section>
+
+    <section id="galleria" class="page alt fade-in">
+      <svg class="page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5h6V7"/><circle cx="12" cy="13.5" r="3.6"/>
+      </svg>
+      <p class="page-title">Galleria</p>
+      <h3 class="gallery-title">Scatta, carica, sorprendici!</h3>
+      <p class="page-lead">Raccogli i tuoi scatti pi&ugrave; belli (o pi&ugrave; pazzi) durante la festa e caricali nel nostro album condiviso. Diventer&agrave; il diario fotografico scritto da tutti voi.</p>
+      <a class="btn" href="https://photos.app.goo.gl/HPv4gT6zsGaarD4u7" target="_blank" rel="noopener">Carica le tue foto</a>
+      <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&amp;data=https://photos.app.goo.gl/HPv4gT6zsGaarD4u7" alt="QR code dell'album foto condiviso">
+      <p class="page-note">Scansiona con la fotocamera del telefono per aprire subito l&rsquo;album.</p>
+    </section>
+
+    <footer>
+      <p>Francesco <span class="amp">&amp;</span> Valentina</p>
+      <p class="footer-date">22 maggio 2027 &middot; Puglia</p>
+    </footer>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+<script src="variante-joy.js"></script>
+</body>
+</html>
