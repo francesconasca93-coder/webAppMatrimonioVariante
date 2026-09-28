@@ -796,7 +796,8 @@ footer p { margin: 0; }
        aggirando l'overflow: hidden */
     position: relative;
     height: auto;
-    min-height: 88svh;
+    /* la prima foto è quella degli sposi: a schermo intero invece che a 88svh */
+    min-height: 100svh;
     padding: 5rem 1.5rem 3rem;
     /* su una riga sola il testo in basso a sinistra sembra tagliato: qui i nomi
        stanno al centro del pannello, come una copertina */
@@ -806,13 +807,24 @@ footer p { margin: 0; }
   }
 
   .page {
-    --pad-y: 4rem;
+    /* più margine di prima fra una sezione e l'altra, a rafforzare lo stacco */
+    --pad-y: 5rem;
     padding: var(--pad-y) 1.5rem;
   }
   .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
-  .page-date-sm { margin-top: -0.6rem; }
 
   footer { padding: 3rem 1.5rem 2.5rem; }
+
+  /* Titolo di sezione: centrato e un filo più grande, così lo stacco fra una
+     sezione e l'altra si legge anche senza foto o fregio. */
+  .page-icon { justify-self: center; }
+  .page-title {
+    justify-self: center;
+    text-align: center;
+    font-size: clamp(1rem, 3.4vw, 1.2rem);
+    margin-bottom: 2.2rem;
+  }
+  .page-date-sm { margin-top: -0.6rem; text-align: center; }
 
   /* Senza il pannello sticky, le foto delle sezioni (viaggio, dress-code,
      contatti: le stesse che cambierebbero nel pannello) diventano una fascia
@@ -829,9 +841,9 @@ footer p { margin: 0; }
     width: 100vw;
     margin-left: -50vw;
     margin-top: calc(var(--pad-y) * -1);
-    margin-bottom: 2.2rem;
-    height: 42vw;
-    max-height: 240px;
+    margin-bottom: 2.6rem;
+    height: 58vw;
+    max-height: 340px;
     background-size: cover;
     background-position: center;
   }
@@ -852,9 +864,9 @@ footer p { margin: 0; }
   #galleria::before {
     content: '❦';
     display: block;
-    margin: 0 0 2.2rem;
+    margin: 0 0 2.6rem;
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     line-height: 1;
     color: var(--sage);
     opacity: 0.75;
@@ -877,7 +889,7 @@ footer p { margin: 0; }
 @media (max-width: 560px) {
   .menu-toggle { padding: 0.6rem 0.9rem; font-size: 0.65rem; }
 
-  .page { --pad-y: 3.5rem; padding: var(--pad-y) 1.25rem; }
+  .page { --pad-y: 4.5rem; padding: var(--pad-y) 1.25rem; }
   .aux { padding: 4.5rem 1.25rem 2.5rem; }
 
   /* orario sopra, evento sotto: a 320px la traccia rubava troppa larghezza */
