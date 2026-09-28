@@ -805,46 +805,79 @@ footer p { margin: 0; }
     text-align: center;
   }
 
-  /* Senza il pannello sticky la foto di ogni sezione (data-art, letta da
-     variante-joy.js in --bg-photo) non si vede più scorrendo: qui torna come
-     sfondo attenuato, fusa con il tint della sezione. */
   .page {
-    position: relative;
-    /* riga di colore netta all'inizio di ogni sezione: segna il cambio anche
-       quando il tint è vicino a quello della sezione precedente */
-    border-top: 5px solid var(--tint, var(--line));
+    --pad-y: 4rem;
+    padding: var(--pad-y) 1.5rem;
   }
-
-  .page::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image: var(--bg-photo, none);
-    background-size: cover;
-    background-position: center;
-    background-color: var(--tint, var(--paper));
-    background-blend-mode: multiply;
-    opacity: 0.26;
-  }
-
-  .page { padding: 4rem 1.5rem; }
   .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
   .page-date-sm { margin-top: -0.6rem; }
 
   footer { padding: 3rem 1.5rem 2.5rem; }
+
+  /* Senza il pannello sticky, le foto delle sezioni (viaggio, dress-code,
+     contatti: le stesse che cambierebbero nel pannello) diventano una fascia
+     a piena larghezza fra una sezione e la successiva, a fare da separatore.
+     Il trucco left/margin-left sborda oltre il padding della sezione fino ai
+     bordi del viewport, indipendentemente da quanto vale il padding stesso. */
+  #viaggio::before,
+  #dress-code::before,
+  #contatti::before {
+    content: '';
+    display: block;
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    margin-top: calc(var(--pad-y) * -1);
+    margin-bottom: 2.2rem;
+    height: 42vw;
+    max-height: 240px;
+    background-size: cover;
+    background-position: center;
+  }
+  #viaggio::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
+  #dress-code::before { background-image: url('foto/3.festa-luci.jpg'); }
+  #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); }
+
+  /* Le altre soglie fra sezioni non hanno una foto propria (ripeterla non
+     segnerebbe un vero cambio): un fregio tipografico segna comunque il
+     passaggio, in coerenza con i rami d'ulivo agli angoli della copertina. */
+  #benvenuto::before,
+  #programma::before,
+  #alloggio::before,
+  #meteo::before,
+  #faq::before,
+  #regalo::before,
+  #rsvp::before,
+  #galleria::before {
+    content: '❦';
+    display: block;
+    margin: 0 0 2.2rem;
+    text-align: center;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--sage);
+    opacity: 0.75;
+  }
 
   /* Rallenta l'arrivo su ogni sezione senza bloccare lo scorrimento libero al
      suo interno: "proximity" aggancia solo se lo scroll si ferma vicino
      all'inizio, "always" impedisce di superarlo con uno swipe veloce. */
   html { scroll-snap-type: y proximity; }
   .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
+
+  /* Blocchi che su una colonna sola restavano allineati a sinistra: qui
+     centrati, coerenti con la copertina e con il resto della richiesta. */
+  #galleria .btn { justify-self: center; }
+  .qr-code { justify-self: center; }
+  .iban { text-align: center; }
+  .contacts { text-align: center; }
 }
 
 @media (max-width: 560px) {
   .menu-toggle { padding: 0.6rem 0.9rem; font-size: 0.65rem; }
 
-  .page { padding: 3.5rem 1.25rem; }
+  .page { --pad-y: 3.5rem; padding: var(--pad-y) 1.25rem; }
   .aux { padding: 4.5rem 1.25rem 2.5rem; }
 
   /* orario sopra, evento sotto: a 320px la traccia rubava troppa larghezza */

@@ -67,11 +67,8 @@
   // statico, si stampa una volta e non serve rifarlo allo scorrimento. Senza JS
   // le fasce restano su --paper-alt, che è il ripiego dichiarato nel CSS.
   sections.forEach((sec, i) => {
-    const slide = slides[indexFor[i]];
-    if (slide.dataset.tint) sec.style.setProperty('--tint', slide.dataset.tint);
-    // Sotto i 900px il pannello foto non è sticky: la stessa foto arriva alla
-    // sezione come sfondo attenuato, così non resta mai nascosta.
-    sec.style.setProperty('--bg-photo', `url("${slide.getAttribute('src')}")`);
+    const tint = slides[indexFor[i]].dataset.tint;
+    if (tint) sec.style.setProperty('--tint', tint);
   });
 
   // Le sezioni sono contigue, quindi ce n'è sempre una sola a cavallo della metà
