@@ -810,6 +810,10 @@ footer p { margin: 0; }
   }
   .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
 
+  /* Colore proprio invece del paper di base, per distinguerla dalle sezioni
+     accanto senza margini o ombre da card. */
+  #benvenuto { background: #f4e6d8; }
+
   footer { padding: 3rem 1.5rem 2.5rem; text-align: center; }
 
   /* Titolo di sezione: centrato e un filo più grande, così lo stacco fra una
@@ -852,7 +856,10 @@ footer p { margin: 0; }
      swipe veloce poteva scavalcare più soglie prima di agganciarsi qui;
      "mandatory" + "always" fermano sempre sulla sezione successiva, mai oltre. */
   html { scroll-snap-type: y mandatory; }
-  .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
+  /* .aux deve avere anche lei un punto di aggancio: senza, il mandatory non
+     trova uno snap-point valido in cima alla pagina e scivola via da solo
+     verso il primo che trova, cioè la sezione successiva. */
+  .aux, .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
 
   /* Blocchi che su una colonna sola restavano allineati a sinistra: qui
      centrati, coerenti con la copertina e con il resto della richiesta.
