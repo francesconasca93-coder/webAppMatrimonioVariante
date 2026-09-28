@@ -798,14 +798,47 @@ footer p { margin: 0; }
     height: auto;
     min-height: 88svh;
     padding: 5rem 1.5rem 3rem;
+    /* su una riga sola il testo in basso a sinistra sembra tagliato: qui i nomi
+       stanno al centro del pannello, come una copertina */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
+  /* Senza il pannello sticky la foto di ogni sezione (data-art, letta da
+     variante-joy.js in --bg-photo) non si vede più scorrendo: qui torna come
+     sfondo attenuato, fusa con il tint della sezione. */
+  .page {
+    position: relative;
+    /* riga di colore netta all'inizio di ogni sezione: segna il cambio anche
+       quando il tint è vicino a quello della sezione precedente */
+    border-top: 5px solid var(--tint, var(--line));
+  }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--bg-photo, none);
+    background-size: cover;
+    background-position: center;
+    background-color: var(--tint, var(--paper));
+    background-blend-mode: multiply;
+    opacity: 0.26;
+  }
 
   .page { padding: 4rem 1.5rem; }
   .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
   .page-date-sm { margin-top: -0.6rem; }
 
   footer { padding: 3rem 1.5rem 2.5rem; }
+
+  /* Rallenta l'arrivo su ogni sezione senza bloccare lo scorrimento libero al
+     suo interno: "proximity" aggancia solo se lo scroll si ferma vicino
+     all'inizio, "always" impedisce di superarlo con uno swipe veloce. */
+  html { scroll-snap-type: y proximity; }
+  .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
 }
 
 @media (max-width: 560px) {
@@ -828,7 +861,7 @@ footer p { margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html { scroll-behavior: auto; scroll-snap-type: none; }
 
   .js .fade-in,
   .js .fade-in.visible { opacity: 1; transform: none; transition: none; }
