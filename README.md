@@ -1,6 +1,5 @@
 # Invito — variante a pannelli
 
-
 Sito statico autonomo: nessuna build, nessuna dipendenza da installare. Basta
 caricare questi file così come sono su un hosting statico (GitHub Pages, Netlify)
 e funziona.

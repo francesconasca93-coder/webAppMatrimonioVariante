@@ -799,11 +799,8 @@ footer p { margin: 0; }
     /* la prima foto è quella degli sposi: a schermo intero invece che a 88svh */
     min-height: 100svh;
     padding: 5rem 1.5rem 3rem;
-    /* su una riga sola il testo in basso a sinistra sembra tagliato: qui i nomi
-       stanno al centro del pannello, come una copertina */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    /* basso a sinistra come nel pannello desktop: justify-content/align-items/
+       text-align restano quelli di base, qui non c'è più bisogno di override */
   }
 
   .page {
@@ -813,7 +810,7 @@ footer p { margin: 0; }
   }
   .page-welcome { min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
 
-  footer { padding: 3rem 1.5rem 2.5rem; }
+  footer { padding: 3rem 1.5rem 2.5rem; text-align: center; }
 
   /* Titolo di sezione: centrato e un filo più grande, così lo stacco fra una
      sezione e l'altra si legge anche senza foto o fregio. */
@@ -851,10 +848,10 @@ footer p { margin: 0; }
   #dress-code::before { background-image: url('foto/3.festa-luci.jpg'); }
   #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); }
 
-  /* Rallenta l'arrivo su ogni sezione senza bloccare lo scorrimento libero al
-     suo interno: "proximity" aggancia solo se lo scroll si ferma vicino
-     all'inizio, "always" impedisce di superarlo con uno swipe veloce. */
-  html { scroll-snap-type: y proximity; }
+  /* Rallenta l'arrivo su ogni sezione, una alla volta: con "proximity" uno
+     swipe veloce poteva scavalcare più soglie prima di agganciarsi qui;
+     "mandatory" + "always" fermano sempre sulla sezione successiva, mai oltre. */
+  html { scroll-snap-type: y mandatory; }
   .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
 
   /* Blocchi che su una colonna sola restavano allineati a sinistra: qui
