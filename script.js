@@ -5,22 +5,15 @@ const WEDDING_DATE = new Date('2027-05-22T11:00:00+02:00');
 
 function renderCountdown() {
   const el = document.getElementById('countdown');
-  const daysEl = document.getElementById('countdown-days');
-  if (!el && !daysEl) return;
+  if (!el) return;
 
   const diff = WEDDING_DATE - new Date();
   if (diff <= 0) {
-    if (el) el.innerHTML = '<p>È il grande giorno!</p>';
-    if (daysEl) daysEl.textContent = 'Oggi';
+    el.innerHTML = '<p>È il grande giorno!</p>';
     return;
   }
 
   const days = Math.floor(diff / 86400000);
-
-  // Riquadro "l'evento inizia tra N giorni" della variante Joy
-  if (daysEl) daysEl.textContent = `${days} ${days === 1 ? 'GIORNO' : 'GIORNI'}`;
-
-  if (!el) return;
   const hours = Math.floor((diff % 86400000) / 3600000);
   const minutes = Math.floor((diff % 3600000) / 60000);
   const seconds = Math.floor((diff % 60000) / 1000);

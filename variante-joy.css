@@ -11,7 +11,7 @@
   --clay: #b9683f;
   --line: #e2dac6;
 
-  --aux-w: 44%;
+  --aux-w: 52%;
   /* larghezza della colonna di testo: unica per tutte le sezioni, così le
      intestazioni condividono lo stesso bordo sinistro */
   --col: 620px;
@@ -301,7 +301,12 @@ body.drawer-open .drawer li { opacity: 1; transform: translateX(0); }
   display: grid;
   grid-template-columns: minmax(0, var(--col));
   justify-content: center;
-  padding: 5.5rem 3rem;
+  /* orizzontale in clamp: con --aux-w più largo, qui a 900-1100px si guadagna
+     spazio invece di restare fissi a 3rem e stringere troppo la colonna */
+  padding: 5.5rem clamp(1.5rem, 4vw, 3rem);
+  /* testo centrato di default; le eccezioni (elenchi, form) sono più sotto,
+     dove serve l'allineamento a sinistra per restare leggibili */
+  text-align: center;
 }
 
 /* --tint è il colore prestato dalla foto di quella parte di pagina, stampato da
@@ -313,16 +318,16 @@ section[id] { scroll-margin-top: var(--nav-h); }
 .page-icon {
   width: 34px;
   height: 34px;
-  justify-self: start;
+  justify-self: center;
   margin-bottom: 0.9rem;
   color: var(--sage);
 }
 
 .page-title {
-  margin: 0 0 1.8rem;
-  font-size: clamp(0.85rem, 2.6vw, 1rem);
+  margin: 0 0 2rem;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
   font-weight: 400;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--clay);
 }
@@ -398,9 +403,9 @@ section[id] { scroll-margin-top: var(--nav-h); }
   display: flex;
   justify-content: center;
   /* 4 colonne devono stare anche a 320px senza andare a capo */
-  gap: clamp(0.9rem, 5.5vw, 2.2rem);
+  gap: clamp(0.8rem, 5.5vw, 2.2rem);
   margin: 2.4rem 0;
-  font-size: clamp(1.1rem, 4.4vw, 1.4rem);
+  font-size: clamp(1.8rem, 7.2vw, 2.4rem);
 }
 
 #countdown div { text-align: center; }
@@ -408,7 +413,7 @@ section[id] { scroll-margin-top: var(--nav-h); }
 #countdown span {
   display: block;
   margin-top: 0.3rem;
-  font-size: 0.62rem;
+  font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--sage);
@@ -457,7 +462,9 @@ section[id] { scroll-margin-top: var(--nav-h); }
 
 /* ---------- TIMELINE ---------- */
 
-.tl { list-style: none; margin: 0; padding: 0; }
+/* A sinistra: qui il centrato non si applica, il testo si affianca alla
+   traccia e ai puntini della timeline, non ha senso staccarlo da lì */
+.tl { list-style: none; margin: 0; padding: 0; text-align: left; }
 
 .tl li {
   position: relative;
@@ -534,7 +541,9 @@ section[id] { scroll-margin-top: var(--nav-h); }
 
 /* ---------- BLOCCHI ICONA + TESTO ---------- */
 
-.info { display: flex; flex-direction: column; gap: 2.4rem; margin-top: 2.2rem; }
+/* A sinistra: icona e testo sono affiancati, centrare il testo lo staccherebbe
+   dall'icona e i puntini degli elenchi finirebbero in mezzo alle righe */
+.info { display: flex; flex-direction: column; gap: 2.4rem; margin-top: 2.2rem; text-align: left; }
 
 .info-block { display: flex; gap: 1.2rem; }
 
@@ -546,35 +555,11 @@ section[id] { scroll-margin-top: var(--nav-h); }
 .info-block li { font-size: 0.98rem; margin-bottom: 0.4rem; }
 .info-block strong { font-weight: 400; color: var(--clay); }
 
-/* ---------- COUNTDOWN IN BANNER ---------- */
-
-.cd-banner {
-  margin-top: 3.5rem;
-  padding: 2.2rem 1.5rem;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-}
-
-.cd-banner-label {
-  margin: 0 0 0.5rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--sage);
-}
-
-.cd-banner-value {
-  margin: 0;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.9rem, 6vw, 2.8rem);
-  letter-spacing: 0.04em;
-  color: var(--clay);
-}
-
 /* ---------- DOMANDE E RISPOSTE ---------- */
 
-.qa { margin-top: 2.4rem; }
+/* A sinistra: il +/- della domanda è ancorato a destra col margin-left:auto,
+   centrare il testo lo farebbe traballare riga per riga */
+.qa { margin-top: 2.4rem; text-align: left; }
 
 .qa details { border-bottom: 1px solid var(--line); }
 .qa details:first-of-type { border-top: 1px solid var(--line); }
@@ -627,6 +612,7 @@ section[id] { scroll-margin-top: var(--nav-h); }
 .link-group {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.7rem;
   margin: 2.4rem 0 0;
 }
@@ -683,10 +669,11 @@ section[id] { scroll-margin-top: var(--nav-h); }
   margin-bottom: 1rem;
 }
 
-#galleria .btn { justify-self: start; margin-top: 1.6rem; }
+#galleria .btn { justify-self: center; margin-top: 1.6rem; }
 
 .qr-code {
   display: block;
+  justify-self: center;
   margin: 1.8rem 0 0.8rem;
   width: 140px;
   height: 140px;
@@ -698,7 +685,11 @@ section[id] { scroll-margin-top: var(--nav-h); }
 
 /* ---------- FORM ---------- */
 
-form { display: flex; flex-direction: column; gap: 1.3rem; max-width: 420px; margin: 2.2rem 0 0; }
+/* A sinistra: campi e suggerimenti si leggono meglio allineati al bordo
+   dell'input sopra di loro, non staccati al centro */
+/* Il box del form si centra nella colonna (margin auto), il contenuto resta a
+   sinistra: i campi restano leggibili, allineati al bordo dell'input sopra */
+form { display: flex; flex-direction: column; gap: 1.3rem; max-width: 420px; margin: 2.2rem auto 0; text-align: left; }
 
 .field-hint { margin: -0.8rem 0 0; font-size: 0.8rem; opacity: 0.65; }
 
@@ -753,6 +744,7 @@ footer {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
   letter-spacing: 0.04em;
+  text-align: center;
 }
 
 footer p { margin: 0; }
@@ -814,27 +806,34 @@ footer p { margin: 0; }
      accanto senza margini o ombre da card. */
   #benvenuto { background: #f4e6d8; }
 
-  footer { padding: 3rem 1.5rem 2.5rem; text-align: center; }
+  footer { padding: 3rem 1.5rem 2.5rem; }
 
-  /* Titolo di sezione: centrato e un filo più grande, così lo stacco fra una
-     sezione e l'altra si legge anche senza foto o fregio. */
-  .page-icon { justify-self: center; }
+  /* Titolo di sezione: grande e in grassetto, così lo stacco fra una sezione
+     e l'altra si legge a colpo d'occhio anche senza foto. Centratura già
+     nella regola di base, qui serve solo la scala mobile. */
   .page-title {
-    justify-self: center;
-    text-align: center;
-    font-size: clamp(1rem, 3.4vw, 1.2rem);
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+    font-weight: 700;
     margin-bottom: 2.2rem;
   }
-  .page-date-sm { margin-top: -0.6rem; text-align: center; }
+  .page-date-sm { margin-top: -0.6rem; }
 
-  /* Senza il pannello sticky, le foto delle sezioni (viaggio, dress-code,
-     contatti: le stesse che cambierebbero nel pannello) diventano una fascia
-     a piena larghezza fra una sezione e la successiva, a fare da separatore.
-     Il trucco left/margin-left sborda oltre il padding della sezione fino ai
-     bordi del viewport, indipendentemente da quanto vale il padding stesso. */
+  /* Senza il pannello sticky, ogni sezione apre con una foto a piena larghezza,
+     a fare da separatore netto con la precedente. La prima foto (gli sposi)
+     resta riservata alla copertina: qui, in attesa di scatti dedicati, si
+     duplicano le altre tre. Il trucco left/margin-left sborda oltre il
+     padding della sezione fino ai bordi del viewport, indipendentemente da
+     quanto vale il padding stesso. */
+  #programma::before,
   #viaggio::before,
+  #alloggio::before,
+  #meteo::before,
   #dress-code::before,
-  #contatti::before {
+  #faq::before,
+  #regalo::before,
+  #contatti::before,
+  #rsvp::before,
+  #galleria::before {
     content: '';
     display: block;
     position: relative;
@@ -848,35 +847,17 @@ footer p { margin: 0; }
     background-size: cover;
     background-position: center;
   }
+  #programma::before { background-image: url('foto/3.festa-luci.jpg'); }
   #viaggio::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
+  #alloggio::before { background-image: url('foto/4.corte-bracco.jpg'); }
+  #meteo::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
   #dress-code::before { background-image: url('foto/3.festa-luci.jpg'); }
+  #faq::before { background-image: url('foto/4.corte-bracco.jpg'); }
+  #regalo::before { background-image: url('foto/2.trani-cattedrale.jpg'); }
   #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); }
+  #rsvp::before { background-image: url('foto/3.festa-luci.jpg'); }
+  #galleria::before { background-image: url('foto/4.corte-bracco.jpg'); }
 
-  /* Rallenta l'arrivo su ogni sezione, una alla volta: con "proximity" uno
-     swipe veloce poteva scavalcare più soglie prima di agganciarsi qui;
-     "mandatory" + "always" fermano sempre sulla sezione successiva, mai oltre. */
-  html { scroll-snap-type: y mandatory; }
-  /* .aux deve avere anche lei un punto di aggancio: senza, il mandatory non
-     trova uno snap-point valido in cima alla pagina e scivola via da solo
-     verso il primo che trova, cioè la sezione successiva. */
-  .aux, .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
-
-  /* Blocchi che su una colonna sola restavano allineati a sinistra: qui
-     centrati, coerenti con la copertina e con il resto della richiesta.
-     Gli elenchi (timeline, FAQ, blocchi icona+testo, form) restano com'erano:
-     qui solo il testo semplice, non le liste. */
-  #galleria .btn { justify-self: center; }
-  .qr-code { justify-self: center; }
-  .iban,
-  .contacts,
-  .page-lead,
-  .page-note,
-  .weather-now,
-  .weather-note,
-  .gallery-title,
-  #rsvp-thanks {
-    text-align: center;
-  }
 }
 
 @media (max-width: 560px) {
@@ -899,7 +880,7 @@ footer p { margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; scroll-snap-type: none; }
+  html { scroll-behavior: auto; }
 
   .js .fade-in,
   .js .fade-in.visible { opacity: 1; transform: none; transition: none; }
