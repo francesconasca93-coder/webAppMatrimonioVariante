@@ -851,27 +851,6 @@ footer p { margin: 0; }
   #dress-code::before { background-image: url('foto/3.festa-luci.jpg'); }
   #contatti::before { background-image: url('foto/4.corte-bracco.jpg'); }
 
-  /* Le altre soglie fra sezioni non hanno una foto propria (ripeterla non
-     segnerebbe un vero cambio): un fregio tipografico segna comunque il
-     passaggio, in coerenza con i rami d'ulivo agli angoli della copertina. */
-  #benvenuto::before,
-  #programma::before,
-  #alloggio::before,
-  #meteo::before,
-  #faq::before,
-  #regalo::before,
-  #rsvp::before,
-  #galleria::before {
-    content: '❦';
-    display: block;
-    margin: 0 0 2.6rem;
-    text-align: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: var(--sage);
-    opacity: 0.75;
-  }
-
   /* Rallenta l'arrivo su ogni sezione senza bloccare lo scorrimento libero al
      suo interno: "proximity" aggancia solo se lo scroll si ferma vicino
      all'inizio, "always" impedisce di superarlo con uno swipe veloce. */
@@ -879,11 +858,21 @@ footer p { margin: 0; }
   .page, footer { scroll-snap-align: start; scroll-snap-stop: always; }
 
   /* Blocchi che su una colonna sola restavano allineati a sinistra: qui
-     centrati, coerenti con la copertina e con il resto della richiesta. */
+     centrati, coerenti con la copertina e con il resto della richiesta.
+     Gli elenchi (timeline, FAQ, blocchi icona+testo, form) restano com'erano:
+     qui solo il testo semplice, non le liste. */
   #galleria .btn { justify-self: center; }
   .qr-code { justify-self: center; }
-  .iban { text-align: center; }
-  .contacts { text-align: center; }
+  .iban,
+  .contacts,
+  .page-lead,
+  .page-note,
+  .weather-now,
+  .weather-note,
+  .gallery-title,
+  #rsvp-thanks {
+    text-align: center;
+  }
 }
 
 @media (max-width: 560px) {
